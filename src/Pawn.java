@@ -17,8 +17,35 @@ public class Pawn extends Piece {
         }
     }
 
-    void isLegalMove(int pickedPiece,int fromY,int fromX,int toY,int toX){
+    Client client;
+    boolean isLegalMove(int pickedPiece, int fromY, int fromX, int toY, int toX) {
+        ChessBoard chessBoard = new ChessBoard(client);
+        switch (id) {
+            case 5:
+                if ((fromY - toY == 1) && (fromX == toX) && (chessBoard.chessBoard[toY][toX] == 12)) {
+                    return true;
+                }
+                if ((fromY - toY == 2) && (fromY == 6) && (fromX == toX) && (chessBoard.chessBoard[toY][toX] == 12)) {
+                    return true;
+                }
+                if ((fromY - toY == 1) && (chessBoard.chessBoard[toY][toX] != 12) && (fromX != toX)) {
+                    return true;
+                }
+                return false;
+            case 11:
+                if((fromY - toY == -1) && (fromX == toX) && (chessBoard.chessBoard[toY][toX] == 12)) {
+                    return true;
+                }
+                if((fromY - toY == -2) && (fromY == 1) && (fromX == toX) && (chessBoard.chessBoard[toY][toX] == 12)){
+                    return true;
+                }
+                if((fromY - toY == -1) && (chessBoard.chessBoard[toY][toX] != 12) && (fromX != toX)){
+                    return true;
+                }
+                return false;
 
+        }
+        return true;
     }
 
 }

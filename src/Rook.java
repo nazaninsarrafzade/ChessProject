@@ -17,7 +17,83 @@ public class Rook extends Piece {
         }
     }
 
-    void isLegalMove(int pickedPiece,int fromY,int fromX,int toY,int toX){
-
+    Client client;
+    boolean isLegalMove(int pickedPiece, int fromY, int fromX, int toY, int toX) {
+        ChessBoard chessBoard = new ChessBoard(client);
+        switch (id) {
+            case 2:
+                if ((fromX == toX)) {
+                    if (fromY > toY) {
+                        for (int i = fromY; i > toY; --i) {
+                            if (chessBoard.chessBoard[i][fromX] != 12) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    } else {
+                        for (int i = toY; i > fromY; --i) {
+                            if (chessBoard.chessBoard[i][fromX] != 12) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                }
+                if ((fromY == toY)) {
+                    if (fromX > toX) {
+                        for (int i = fromX; i > toX; --i) {
+                            if (chessBoard.chessBoard[fromY][i] != 12) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    } else {
+                        for (int i = toX; i > fromX; --i) {
+                            if (chessBoard.chessBoard[fromY][i] != 12) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                }
+                return false;
+            case 8:
+                if((fromX == toX)){
+                    if(fromY > toY){
+                        for(int i = fromY; i > toY; --i){
+                            if(chessBoard.chessBoard[i][fromX] != 12){
+                                return false;
+                            }
+                        }
+                        return true;
+                    } else {
+                        for(int i = toY; i > fromY; --i){
+                            if(chessBoard.chessBoard[i - 1][fromX] != 12){
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                }
+                if((fromY == toY)){
+                    if(fromX> toX){
+                        for(int i = fromX; i > toX; --i){
+                            if(chessBoard.chessBoard[fromY][i] != 12){
+                                return false;
+                            }
+                        }
+                        return true;
+                    } else {
+                        for(int i = toX; i > fromX; --i){
+                            if(chessBoard.chessBoard[fromY][i - 1] != 12){
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                }
+                return false;
+        }
+        return true;
     }
 }

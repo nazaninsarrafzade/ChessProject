@@ -13,7 +13,5 @@ public abstract class Piece {
     int id;
     boolean white;
     ImageIcon Image;
-    void isLegalMove(int pickedPiece,int fromY,int fromX,int toY,int toX){
-
-    }
+    abstract boolean isLegalMove(int pickedPiece, int fromY, int fromX, int toY, int toX);
 }

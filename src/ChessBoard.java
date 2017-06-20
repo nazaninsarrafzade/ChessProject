@@ -34,15 +34,6 @@ public class ChessBoard extends JPanel implements ImageObserver, MouseListener, 
         this.serverconnection = new ChessServerConnection(this);
         this.pickedPiece = 12;
     }
-
-    public void resetBoard() {
-        setBoard();
-        repaint();
-        String str = Code.encodeBoard(this);
-        this.serverconnection.send(str);
-        this.serverconnection.send("@RESET");
-    }
-
     //public void initPieces(){
     Rook rookw = new Rook(true);
     Rook rookb = new Rook(false);
@@ -57,6 +48,16 @@ public class ChessBoard extends JPanel implements ImageObserver, MouseListener, 
     Pawn pawnw = new Pawn(true);
     Pawn pawnb = new Pawn(false);
     //}
+
+    public void resetBoard() {
+        setBoard();
+        repaint();
+        String str = Code.encodeBoard(this);
+        this.serverconnection.send(str);
+        this.serverconnection.send("@RESET");
+    }
+
+
 
     private void setBoard() {
         for (int i = 2; i < 6; i++) {
@@ -180,4 +181,75 @@ public class ChessBoard extends JPanel implements ImageObserver, MouseListener, 
     public void mouseMoved(MouseEvent e) {
 
     }
+    @Override
+    public boolean imageUpdate(Image paramImage, int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5){
+        return true;
+    }
+
+    @Override
+    public void paint(Graphics paramGraphics){
+        Graphics2D localGraphics2D = (Graphics2D)paramGraphics;
+        drawOffscreen();
+        localGraphics2D.drawImage(image_buffer, 0, 0, this);
+    }
+
+    private void drawOffscreen(){
+        Graphics2D localGraphics2D = image_buffer.createGraphics();
+        renderChessBoard(localGraphics2D);
+        if(pickedPiece != 12) {
+            localGraphics2D.drawImage(getPiece(pickedPiece).Image.getImage(), x - 22, y - 22, this);
+        }
+    }
+
+    private void renderChessBoard(Graphics2D paramGraphics2D){
+        int i = 0, j = 0;
+        int k = 0;
+
+        for(int m = 0; m < 8; m++) {
+            i = 0;
+            k = m % 2 == 0 ? 1 : 0;
+            for(int n = 0; n < 8; n++) {
+                if(k != 0) {
+                    paramGraphics2D.setColor(Color.white);
+                } else {
+                    paramGraphics2D.setColor(Color.BLUE);
+                }
+                k = k == 0 ? 1 : 0;
+                paramGraphics2D.fillRect(i, j, 50, 50);
+                paintChessPiece(this.chessBoard[m][n], i, j, paramGraphics2D);
+                i += 50;
+            }
+            j += 50;
+        }
+    }
+
+    private void paintChessPiece(int paramInt1, int paramInt2, int paramInt3, Graphics2D paramGraphics2D) {
+        if((paramInt1 < 0) || (paramInt1 >= 12))
+            return;
+
+        paramGraphics2D.drawImage(getPiece(paramInt1).Image.getImage(), paramInt2 + 2, paramInt3 + 2, this);
+    }
+
+    public Piece getPiece(int id){
+
+        switch (id){
+            case 0:return kingw;
+            case 1:return queenw;
+            case 2:return rookw;
+            case 3:return bishopw;
+            case 4:return knightw;
+            case 5:return pawnw;
+            case 6:return kingb;
+            case 7:return queenb;
+            case 8:return rookb;
+            case 9:return bishopb;
+            case 10:return knightb;
+            case 11:return pawnb;
+            default: return chosenPiece;
+        }
+    }
+
+
+
+
 }

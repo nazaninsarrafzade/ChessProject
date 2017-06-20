@@ -17,8 +17,23 @@ public class King extends Piece {
         }
     }
 
-    void isLegalMove(int pickedPiece,int fromY,int fromX,int toY,int toX){
+    boolean isLegalMove(int pickedPiece, int fromY, int fromX, int toY, int toX){
+        switch (id){
+            case 0:
+                if((Math.abs(fromY - toY) == 1 || fromY - toY == 0)
+                        && (Math.abs(fromX - toX) == 1 || fromX - toX == 0)){
+                    return true;
+                }
+                return false;
+            case 6:
+                if((Math.abs(fromY - toY) == 1 || fromY - toY == 0)
+                        && (Math.abs(fromX - toX) == 1 || fromX - toX == 0)){
+                    return true;
+                }
+                return false;
+        }
 
+        return true;
     }
 
 }
