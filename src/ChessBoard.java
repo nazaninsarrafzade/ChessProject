@@ -34,7 +34,7 @@ public class ChessBoard extends JPanel implements ImageObserver, MouseListener, 
         this.serverconnection = new ChessServerConnection(this);
         this.pickedPiece = 12;
     }
-    //public void initPieces(){
+    
     Rook rookw = new Rook(true);
     Rook rookb = new Rook(false);
     Knight knightw = new Knight(true);
