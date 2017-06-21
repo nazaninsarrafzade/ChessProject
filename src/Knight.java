@@ -17,7 +17,7 @@ public class Knight extends Piece {
         }
     }
 
-    boolean isLegalMove(int pickedPiece, int fromY, int fromX, int toY, int toX) {
+    boolean isLegalMove(int pickedPiece, int fromY, int fromX, int toY, int toX,ChessBoard[][] chessBoard) {
         switch (id) {
             case 4:
                 if (fromY - toY == 1) {

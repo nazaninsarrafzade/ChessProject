@@ -19,9 +19,9 @@ public class Bishop extends Piece {
         }
     }
 
-    Client client;
-    boolean isLegalMove(int pickedPiece, int fromY, int fromX, int toY, int toX) {
-        ChessBoard chessBoard = new ChessBoard(client);
+
+    boolean isLegalMove(int pickedPiece, int fromY, int fromX, int toY, int toX,ChessBoard[][] chessBoard) {
+      
         switch (id) {
             case 3:
 
@@ -29,28 +29,28 @@ public class Bishop extends Piece {
                 if (fromY - toY == fromX - toX) {
                     if (fromY > toY && fromX > toX) {
                         for (int i = toY + 1, j = toX + 1; i < fromY && j < fromX; ++i, ++j) {
-                            if (chessBoard.chessBoard[i][j] != 12) {
+                            if (chessBoard[i][j] != 12) {
                                 return false;
                             }
                         }
                         return true;
                     } else if (fromY > toY && fromX < toX) {
                         for (int i = toY + 1, j = toX - 1; i < fromY && j > fromX; ++i, --j) {
-                            if (chessBoard.chessBoard[i][j] != 12) {
+                            if (chessBoard[i][j] != 12) {
                                 return false;
                             }
                         }
                         return true;
                     } else if (fromY < toY && fromX > toX) {
                         for (int i = toY - 1, j = toX + 1; i > fromY && j < fromX; --i, ++j) {
-                            if (chessBoard.chessBoard[i][j] != 12) {
+                            if (chessBoard[i][j] != 12) {
                                 return false;
                             }
                         }
                         return true;
                     } else if (fromY < toY && fromX < toX) {
                         for (int i = toY - 1, j = toX - 1; i > fromY && j > fromX; --i, --j) {
-                            if (chessBoard.chessBoard[i][j] != 12) {
+                            if (chessBoard[i][j] != 12) {
                                 return false;
                             }
                         }
@@ -64,28 +64,28 @@ public class Bishop extends Piece {
                 if (fromY - toY == fromX - toX) {
                     if (fromY > toY && fromX > toX) {
                         for (int i = toY + 1, j = toX + 1; i < fromY && j < fromX; ++i, ++j) {
-                            if (chessBoard.chessBoard[i][j] != 12) {
+                            if (chessBoard[i][j] != 12) {
                                 return false;
                             }
                         }
                         return true;
                     } else if (fromY > toY && fromX < toX) {
                         for (int i = toY + 1, j = toX - 1; i < fromY && j > fromX; ++i, --j) {
-                            if (chessBoard.chessBoard[i][j] != 12) {
+                            if (chessBoard[i][j] != 12) {
                                 return false;
                             }
                         }
                         return true;
                     } else if (fromY < toY && fromX > toX) {
                         for (int i = toY - 1, j = toX + 1; i > fromY && j < fromX; --i, ++j) {
-                            if (chessBoard.chessBoard[i][j] != 12) {
+                            if (chessBoard[i][j] != 12) {
                                 return false;
                             }
                         }
                         return true;
                     } else if (fromY < toY && fromX < toX) {
                         for (int i = toY - 1, j = toX - 1; i > fromY && j > fromX; --i, --j) {
-                            if (chessBoard.chessBoard[i][j] != 12) {
+                            if (chessBoard[i][j] != 12) {
                                 return false;
                             }
                         }
@@ -97,28 +97,28 @@ public class Bishop extends Piece {
                 if (toY - fromY == toX - fromX) {
                     if (fromY > toY && fromX > toX) {
                         for (int i = toY + 1, j = toX + 1; i < fromY && j < fromX; ++i, ++j) {
-                            if (chessBoard.chessBoard[i][j] != 12) {
+                            if (chessBoard[i][j] != 12) {
                                 return false;
                             }
                         }
                         return true;
                     } else if (fromY > toY && fromX < toX) {
                         for (int i = toY + 1, j = toX - 1; i < fromY && j > fromX; ++i, --j) {
-                            if (chessBoard.chessBoard[i][j] != 12) {
+                            if (chessBoard[i][j] != 12) {
                                 return false;
                             }
                         }
                         return true;
                     } else if (fromY < toY && fromX > toX) {
                         for (int i = toY - 1, j = toX + 1; i > fromY && j < fromX; --i, ++j) {
-                            if (chessBoard.chessBoard[i][j] != 12) {
+                            if (chessBoard[i][j] != 12) {
                                 return false;
                             }
                         }
                         return true;
                     } else if (fromY < toY && fromX < toX) {
                         for (int i = toY - 1, j = toX - 1; i > fromY && j > fromX; --i, --j) {
-                            if (chessBoard.chessBoard[i][j] != 12) {
+                            if (chessBoard[i][j] != 12) {
                                 return false;
                             }
                         }

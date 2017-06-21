@@ -115,7 +115,7 @@ public class ChessBoard extends JPanel implements ImageObserver, MouseListener, 
             return;
 
         pickedPiece = chessBoard[fromY][fromX];
-//mycolor bool mishe va tabdile id be piecce ye tabe mishe
+
         if(pickedPiece!=12){
             if((getPieceType(pickedPiece) != myColor) || (!myTurn)) {
                 pickedPiece = 12;
@@ -250,6 +250,54 @@ public class ChessBoard extends JPanel implements ImageObserver, MouseListener, 
     }
 
 
+boolean isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5) {
 
+        if(getPieceType(paramInt1) == getPieceType(this.chessBoard[paramInt4][paramInt5])) {
+            return false;
+        }
+        switch(paramInt1) {
+
+            case 0:return kingw.isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5,this.chessBoard[][]));
+               
+
+            case 6:return kingb.isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5,this.chessBoard[][]));
+               
+
+            case 1:return queenw.isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5,this.chessBoard[][]));
+              
+
+            case 7:return queenb.isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5,this.chessBoard[][]));
+               
+            case 2:return rookw.isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5,this.chessBoard[][]));
+               
+               
+
+            case 8:return rookb.isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5,this.chessBoard[][]));
+               
+              
+
+            case 3:return bishopw.isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5,this.chessBoard[][]));
+               
+             
+            case 9:return bishopb.isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5,this.chessBoard[][]));
+               
+          
+            case 4:return knightw.isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5,this.chessBoard[][]));
+               
+               
+
+            case 10:return knightb.isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5,this.chessBoard[][]));
+               
+               
+
+            case 5:return pawnw.isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5,this.chessBoard[][]));
+               
+           
+            case 11:return pawnb.isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5,this.chessBoard[][]));
+               
+              
+        }
+        return true;
+    }
 
 }
