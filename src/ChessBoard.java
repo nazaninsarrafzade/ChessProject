@@ -29,7 +29,11 @@ public class ChessBoard extends JPanel implements ImageObserver, MouseListener, 
         setBoard();
         this.pickedPiece = 12;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> master
     Rook rookw = new Rook(true);
     Rook rookb = new Rook(false);
     Knight knightw = new Knight(true);
