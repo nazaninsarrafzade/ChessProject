@@ -17,9 +17,9 @@ public class Rook extends Piece {
         }
     }
 
-    
-    boolean isLegalMove(int pickedPiece, int fromY, int fromX, int toY, int toX,ChessBoard[][] chessBoard) {
-       
+
+    boolean isLegalMove(int pickedPiece, int fromY, int fromX, int toY, int toX,int [][]chessBoard) {
+
         switch (id) {
             case 2:
                 if ((fromX == toX)) {

@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 
 /**
@@ -20,8 +19,8 @@ public class Bishop extends Piece {
     }
 
 
-    boolean isLegalMove(int pickedPiece, int fromY, int fromX, int toY, int toX,ChessBoard[][] chessBoard) {
-      
+    boolean isLegalMove(int pickedPiece, int fromY, int fromX, int toY, int toX,int[][] chessBoard) {
+
         switch (id) {
             case 3:
 

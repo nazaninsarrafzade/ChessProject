@@ -17,7 +17,7 @@ public class King extends Piece {
         }
     }
 
-    boolean isLegalMove(int pickedPiece, int fromY, int fromX, int toY, int toX){
+    boolean isLegalMove(int pickedPiece, int fromY, int fromX, int toY, int toX,int chessBoard[][]){
         switch (id){
             case 0:
                 if((Math.abs(fromY - toY) == 1 || fromY - toY == 0)

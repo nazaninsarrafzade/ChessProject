@@ -1,6 +1,3 @@
-/**
- * Created by nazanin-sarrafzadeh on 6/3/2017.
- */
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
@@ -8,7 +5,6 @@ import javax.swing.*;
 
 public class ChessBoard extends JPanel implements ImageObserver, MouseListener, MouseMotionListener {
     BufferedImage image_buffer;
-    ChessServerConnection serverconnection;
     private int x;
     private int y;
     private Client Player;
@@ -26,15 +22,14 @@ public class ChessBoard extends JPanel implements ImageObserver, MouseListener, 
     public ChessBoard(Client chessClient) {
         this.Player = chessClient;
         setSize(800, 800);
-        //initPieces();
+
         this.image_buffer = new BufferedImage(400, 400, 1);
         addMouseListener(this);
         addMouseMotionListener(this);
         setBoard();
-        this.serverconnection = new ChessServerConnection(this);
         this.pickedPiece = 12;
     }
-    //public void initPieces(){
+
     Rook rookw = new Rook(true);
     Rook rookb = new Rook(false);
     Knight knightw = new Knight(true);
@@ -47,14 +42,13 @@ public class ChessBoard extends JPanel implements ImageObserver, MouseListener, 
     Queen queenb = new Queen(false);
     Pawn pawnw = new Pawn(true);
     Pawn pawnb = new Pawn(false);
-    //}
+
 
     public void resetBoard() {
         setBoard();
         repaint();
-        String str = Code.encodeBoard(this);
-        this.serverconnection.send(str);
-        this.serverconnection.send("@RESET");
+        //bayad data ro befrestim to shabakash inja
+
     }
 
 
@@ -152,25 +146,25 @@ public class ChessBoard extends JPanel implements ImageObserver, MouseListener, 
             return;
         }
     }
-        public int getPieceType(int paramInt){
-            switch(paramInt) {
-                case 0:
-                case 1:
-                case 2:
-                case 3:
-                case 4:
-                case 5:
-                    return 14;
-                case 6:
-                case 7:
-                case 8:
-                case 9:
-                case 10:
-                case 11:
-                    return 13;
-            }
-            return 12;
+    public int getPieceType(int paramInt){
+        switch(paramInt) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+                return 14;
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+            case 11:
+                return 13;
         }
+        return 12;
+    }
 
     @Override
     public void mouseDragged(MouseEvent e) {
@@ -250,52 +244,51 @@ public class ChessBoard extends JPanel implements ImageObserver, MouseListener, 
     }
 
 
-boolean isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5) {
+    boolean isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5) {
 
         if(getPieceType(paramInt1) == getPieceType(this.chessBoard[paramInt4][paramInt5])) {
             return false;
         }
         switch(paramInt1) {
 
-            case 0:return kingw.isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5,this.chessBoard[][]));
-               
+            case 0:return kingw.isLegalMove( paramInt1,  paramInt2,  paramInt3, paramInt4, paramInt5,chessBoard);
 
-            case 6:return kingb.isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5,this.chessBoard[][]));
-               
 
-            case 1:return queenw.isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5,this.chessBoard[][]));
-              
+            case 6:return kingb.isLegalMove( paramInt1,paramInt2,  paramInt3, paramInt4,  paramInt5,chessBoard);
 
-            case 7:return queenb.isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5,this.chessBoard[][]));
-               
-            case 2:return rookw.isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5,this.chessBoard[][]));
-               
-               
 
-            case 8:return rookb.isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5,this.chessBoard[][]));
-               
-              
+            case 1:return queenw.isLegalMove(paramInt1,  paramInt2,  paramInt3,  paramInt4, paramInt5,chessBoard);
 
-            case 3:return bishopw.isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5,this.chessBoard[][]));
-               
-             
-            case 9:return bishopb.isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5,this.chessBoard[][]));
-               
-          
-            case 4:return knightw.isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5,this.chessBoard[][]));
-               
-               
 
-            case 10:return knightb.isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5,this.chessBoard[][]));
-               
-               
+            case 7:return queenb.isLegalMove( paramInt1, paramInt2,  paramInt3, paramInt4, paramInt5,chessBoard);
 
-            case 5:return pawnw.isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5,this.chessBoard[][]));
-               
-           
-            case 11:return pawnb.isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5,this.chessBoard[][]));
-               
-              
+            case 2:return rookw.isLegalMove( paramInt1, paramInt2,  paramInt3, paramInt4, paramInt5,chessBoard);
+
+
+
+            case 8:return rookb.isLegalMove( paramInt1,  paramInt2,  paramInt3,  paramInt4,  paramInt5,chessBoard);
+
+
+
+            case 3:return bishopw.isLegalMove(paramInt1, paramInt2, paramInt3,  paramInt4, paramInt5,chessBoard);
+
+
+            case 9:return bishopb.isLegalMove( paramInt1,  paramInt2,paramInt3, paramInt4,  paramInt5,chessBoard);
+
+
+            case 4:return knightw.isLegalMove(paramInt1, paramInt2,  paramInt3,  paramInt4,  paramInt5,chessBoard);
+
+
+            case 10:return knightb.isLegalMove( paramInt1,  paramInt2,  paramInt3,  paramInt4,  paramInt5,chessBoard);
+
+
+
+            case 5:return pawnw.isLegalMove( paramInt1,  paramInt2,  paramInt3,  paramInt4,  paramInt5,chessBoard);
+
+
+            case 11:return pawnb.isLegalMove(paramInt1, paramInt2,  paramInt3, paramInt4, paramInt5,chessBoard);
+
+
         }
         return true;
     }

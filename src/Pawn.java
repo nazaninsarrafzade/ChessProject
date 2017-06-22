@@ -17,9 +17,9 @@ public class Pawn extends Piece {
         }
     }
 
-    
-    boolean isLegalMove(int pickedPiece, int fromY, int fromX, int toY, int toX,ChessBoard[][] chessBoard) {
-       
+
+    boolean isLegalMove(int pickedPiece, int fromY, int fromX, int toY, int toX,int[][] chessBoard) {
+
         switch (id) {
             case 5:
                 if ((fromY - toY == 1) && (fromX == toX) && (chessBoard[toY][toX] == 12)) {

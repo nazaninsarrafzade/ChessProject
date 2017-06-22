@@ -17,9 +17,9 @@ public class Queen extends Piece {
         }
     }
 
-    
-    boolean isLegalMove(int pickedPiece, int fromY, int fromX, int toY, int toX,ChessBoard[][] chessBoard) {
-        
+
+    boolean isLegalMove(int pickedPiece, int fromY, int fromX, int toY, int toX,int[][] chessBoard) {
+
         switch (id) {
             case 1:
                 if ((fromX == toX)) {
@@ -155,28 +155,28 @@ public class Queen extends Piece {
                 if (toY - fromY == toX - fromX) {
                     if (fromY > toY && fromX > toX) {
                         for (int i = toY + 1, j = toX + 1; i < fromY && j < fromX; ++i, ++j) {
-                            if (chessBoard.chessBoard[i][j] != 12) {
+                            if (chessBoard[i][j] != 12) {
                                 return false;
                             }
                         }
                         return true;
                     } else if (fromY > toY && fromX < toX) {
                         for (int i = toY + 1, j = toX - 1; i < fromY && j > fromX; ++i, --j) {
-                            if (chessBoard.chessBoard[i][j] != 12) {
+                            if (chessBoard[i][j] != 12) {
                                 return false;
                             }
                         }
                         return true;
                     } else if (fromY < toY && fromX > toX) {
                         for (int i = toY - 1, j = toX + 1; i > fromY && j < fromX; --i, ++j) {
-                            if (chessBoard.chessBoard[i][j] != 12) {
+                            if (chessBoard[i][j] != 12) {
                                 return false;
                             }
                         }
                         return true;
                     } else if (fromY < toY && fromX < toX) {
                         for (int i = toY - 1, j = toX - 1; i > fromY && j > fromX; --i, --j) {
-                            if (chessBoard.chessBoard[i][j] != 12) {
+                            if (chessBoard[i][j] != 12) {
                                 return false;
                             }
                         }
