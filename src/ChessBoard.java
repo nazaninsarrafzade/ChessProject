@@ -9,57 +9,44 @@ public class ChessBoard extends JPanel implements ImageObserver, MouseListener, 
     private int y;
     private Client Player;
     private int myColor;
-    private boolean myTurn;
+    private boolean myTurn=true;
     private int pickedPiece;
     private int fromY;
     private int fromX;
     private int toY;
-    private int toX;
-    Piece pieces[] = new Piece[16];
+    private int toX;String s;
+    Piece pieces[]=new Piece[16];
     Piece chosenPiece;
     public int[][] chessBoard = new int[8][8];
 
     public ChessBoard(Client chessClient) {
         this.Player = chessClient;
+        myColor=14;
         setSize(800, 800);
-
         this.image_buffer = new BufferedImage(400, 400, 1);
         addMouseListener(this);
         addMouseMotionListener(this);
         setBoard();
         this.pickedPiece = 12;
     }
-<<<<<<< HEAD
-
-=======
-    
->>>>>>> master
-    Rook rookw = new Rook(true);
-    Rook rookb = new Rook(false);
-    Knight knightw = new Knight(true);
-    Knight knightb = new Knight(false);
-    Bishop bishopw = new Bishop(true);
-    Bishop bishopb = new Bishop(false);
-    King kingw = new King(true);
-    King kingb = new King(false);
-    Queen queenw = new Queen(true);
-    Queen queenb = new Queen(false);
-    Pawn pawnw = new Pawn(true);
-    Pawn pawnb = new Pawn(false);
 
 
-    public void resetBoard() {
-        setBoard();
-        repaint();
-        //bayad data ro befrestim to shabakash inja
-
-    }
-
-
+    Rook rookw=new Rook(true);
+    Rook rookb=new Rook(false);
+    Knight knightw=new Knight(true);
+    Knight knightb=new Knight(false);
+    Bishop bishopw=new Bishop(true);
+    Bishop bishopb=new Bishop(false);
+    King kingw=new King(true);
+    King kingb=new King(false);
+    Queen queenw=new Queen(true);
+    Queen queenb=new Queen(false);
+    Pawn pawnw=new Pawn(true);
+    Pawn pawnb=new Pawn(false);
 
     private void setBoard() {
-        for (int i = 2; i < 6; i++) {
-            for (int j = 0; j < 8; j++) {
+        for(int i = 2; i < 6; i++) {
+            for(int j = 0; j < 8; j++) {
                 this.chessBoard[i][j] = 12;
             }
         }
@@ -72,7 +59,7 @@ public class ChessBoard extends JPanel implements ImageObserver, MouseListener, 
         this.chessBoard[0][6] = knightb.id;
         this.chessBoard[0][7] = rookb.id;
 
-        for (int k = 0; k < 8; k++) {
+        for(int k = 0; k < 8; k++){
             this.chessBoard[1][k] = 11;
             this.chessBoard[6][k] = 5;
         }
@@ -83,102 +70,10 @@ public class ChessBoard extends JPanel implements ImageObserver, MouseListener, 
         this.chessBoard[7][3] = queenw.id;
         this.chessBoard[7][4] = kingw.id;
         this.chessBoard[7][5] = bishopw.id;
-        this.chessBoard[7][6] = kingw.id;
+        this.chessBoard[7][6] = knightw.id;
         this.chessBoard[7][7] = rookw.id;
     }
 
-    @Override
-    public void mouseClicked(MouseEvent paramMouseEvent)
-    {
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent paramMouseEvent)
-    {
-    }
-
-    @Override
-    public void mouseExited(MouseEvent paramMouseEvent)
-    {
-    }
-
-    @Override
-    public void mousePressed(MouseEvent mouseEvent) {
-        fromY = (mouseEvent.getY() / 50);
-        fromX = (mouseEvent.getX() / 50);
-
-        if((fromY < 0) || (fromY > 7))
-            return;
-        if((fromX < 0) || (fromX > 7))
-            return;
-
-        pickedPiece = chessBoard[fromY][fromX];
-
-        if(pickedPiece!=12){
-            if((getPieceType(pickedPiece) != myColor) || (!myTurn)) {
-                pickedPiece = 12;
-                return;
-            }
-        }
-
-        chessBoard[fromY][fromX] = 12;
-        x = mouseEvent.getX();
-        y = mouseEvent.getY();
-        repaint();
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent paramMouseEvent) {
-        if (pickedPiece == 12)
-            return;
-
-        toY = (paramMouseEvent.getY() / 50);
-        toX = (paramMouseEvent.getX() / 50);
-
-        if ((toY < 0) || (toY > 7) || (toX < 0) || (toX > 7)) {
-            chessBoard[fromY][fromX] = pickedPiece;
-            pickedPiece = 12;
-            repaint();
-            return;
-        }
-
-        if (((fromY == toY) && (fromX == toX)) ||
-                (!isLegalMove(pickedPiece, fromY, fromX, toY, toX))) {
-            chessBoard[fromY][fromX] = pickedPiece;
-            pickedPiece = 12;
-            repaint();
-            return;
-        }
-    }
-    public int getPieceType(int paramInt){
-        switch(paramInt) {
-            case 0:
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-                return 14;
-            case 6:
-            case 7:
-            case 8:
-            case 9:
-            case 10:
-            case 11:
-                return 13;
-        }
-        return 12;
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-
-    }
     @Override
     public boolean imageUpdate(Image paramImage, int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5){
         return true;
@@ -191,7 +86,8 @@ public class ChessBoard extends JPanel implements ImageObserver, MouseListener, 
         localGraphics2D.drawImage(image_buffer, 0, 0, this);
     }
 
-    private void drawOffscreen(){
+
+    public void drawOffscreen(){
         Graphics2D localGraphics2D = image_buffer.createGraphics();
         renderChessBoard(localGraphics2D);
         if(pickedPiece != 12) {
@@ -228,25 +124,113 @@ public class ChessBoard extends JPanel implements ImageObserver, MouseListener, 
         paramGraphics2D.drawImage(getPiece(paramInt1).Image.getImage(), paramInt2 + 2, paramInt3 + 2, this);
     }
 
-    public Piece getPiece(int id){
-
-        switch (id){
-            case 0:return kingw;
-            case 1:return queenw;
-            case 2:return rookw;
-            case 3:return bishopw;
-            case 4:return knightw;
-            case 5:return pawnw;
-            case 6:return kingb;
-            case 7:return queenb;
-            case 8:return rookb;
-            case 9:return bishopb;
-            case 10:return knightb;
-            case 11:return pawnb;
-            default: return chosenPiece;
-        }
+    @Override
+    public void mouseClicked(MouseEvent paramMouseEvent)
+    {
     }
 
+    @Override
+    public void mouseEntered(MouseEvent paramMouseEvent)
+    {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent paramMouseEvent)
+    {
+    }
+
+    @Override
+    public void mousePressed(MouseEvent mouseEvent) {
+        fromY = (mouseEvent.getY() / 50);
+        fromX = (mouseEvent.getX() / 50);
+
+        if((fromY < 0) || (fromY > 7))
+            return;
+        if((fromX < 0) || (fromX > 7))
+            return;
+
+        pickedPiece = chessBoard[fromY][fromX];
+        if(pickedPiece!=12){
+            if((getPieceType(pickedPiece) != myColor) ) {
+                pickedPiece = 12;
+                return;
+            }
+        }
+
+        chessBoard[fromY][fromX] = 12;
+        x = mouseEvent.getX();
+        y = mouseEvent.getY();
+        repaint();
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent paramMouseEvent){
+        if(pickedPiece == 12)
+            return;
+
+        toY = (paramMouseEvent.getY() / 50);
+        toX = (paramMouseEvent.getX() / 50);
+
+        if((toY < 0) || (toY > 7) || (toX < 0) || (toX > 7)){
+            chessBoard[fromY][fromX] = pickedPiece;
+            pickedPiece = 12;
+            repaint();
+            return;
+        }
+
+        if(((fromY == toY) && (fromX == toX)) ||
+                (!isLegalMove(pickedPiece, fromY, fromX, toY, toX))){
+            chessBoard[fromY][fromX] = pickedPiece;
+            pickedPiece = 12;
+            repaint();
+            return;
+        }
+
+        if(isLegalMove(pickedPiece, fromY, fromX, toY, toX)) {
+            chessBoard[toY][toX] = pickedPiece;
+        }
+        else {
+            chessBoard[fromY][fromX] = pickedPiece;
+        }
+        if(myColor==14){myColor=13;}else {myColor=14;};
+        pickedPiece = 12;
+        repaint();
+
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent paramMouseEvent){
+        if (this.pickedPiece == 12)
+            return;
+        this.x = paramMouseEvent.getX();
+        this.y = paramMouseEvent.getY();
+        repaint();
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent paramMouseEvent)
+    {
+    }
+
+    public int getPieceType(int paramInt){
+        switch(paramInt) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+                return 14;
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+            case 11:
+                return 13;
+        }
+        return 12;
+    }
 
     boolean isLegalMove(int paramInt1, int paramInt2, int paramInt3, int paramInt4, int paramInt5) {
 
@@ -296,5 +280,26 @@ public class ChessBoard extends JPanel implements ImageObserver, MouseListener, 
         }
         return true;
     }
+
+
+    public Piece getPiece(int id){
+
+        switch (id){
+            case 0:return kingw;
+            case 1:return queenw;
+            case 2:return rookw;
+            case 3:return bishopw;
+            case 4:return knightw;
+            case 5:return pawnw;
+            case 6:return kingb;
+            case 7:return queenb;
+            case 8:return rookb;
+            case 9:return bishopb;
+            case 10:return knightb;
+            case 11:return pawnb;
+            default: return chosenPiece;
+        }
+    }
+
 
 }

@@ -18,10 +18,26 @@ public class King extends Piece {
     }
 
     boolean isLegalMove(int pickedPiece, int fromY, int fromX, int toY, int toX,int chessBoard[][]){
+        boolean castled=false;
         switch (id){
             case 0:
                 if((Math.abs(fromY - toY) == 1 || fromY - toY == 0)
                         && (Math.abs(fromX - toX) == 1 || fromX - toX == 0)){
+                    return true;
+                }
+                // castling movement
+                if (fromX-toX==2 && fromY==toY){
+                    if (chessBoard[fromY][fromX-1]!=12 && chessBoard[fromY][fromX-2]!=12){
+                        castled=false;
+                    }
+                    castled=true;
+                    return true;
+                }
+                else if (toX-fromX==2 && fromY==toY){
+                    if (chessBoard[fromY][fromX+1]!=12 && chessBoard[fromY][fromX+2]!=12){
+                        castled=false;
+                    }
+                    castled=true;
                     return true;
                 }
                 return false;
