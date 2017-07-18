@@ -20,6 +20,7 @@ public class Rook extends Piece {
 
     boolean isLegalMove(int pickedPiece, int fromY, int fromX, int toY, int toX,int [][]chessBoard) {
 
+        King kingw=new King(true);
         switch (id) {
             case 2:
                 if ((fromX == toX)) {
@@ -56,6 +57,7 @@ public class Rook extends Piece {
                         return true;
                     }
                 }
+
                 return false;
             case 8:
                 if((fromX == toX)){

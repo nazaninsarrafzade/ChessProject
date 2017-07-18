@@ -3,34 +3,45 @@ import java.awt.event.*;
 import java.awt.image.*;
 import javax.swing.*;
 
-public class ChessBoard extends JPanel implements ImageObserver, MouseListener, MouseMotionListener {
+public class ChessBoard extends JPanel
+        implements ImageObserver, MouseListener, MouseMotionListener {
     BufferedImage image_buffer;
+    ChessServerConnection serverconnection;
     private int x;
     private int y;
     private Client Player;
     private int myColor;
-    private boolean myTurn=true;
+    private boolean myTurn;
     private int pickedPiece;
     private int fromY;
     private int fromX;
     private int toY;
-    private int toX;String s;
+    private int toX;
     Piece pieces[]=new Piece[16];
     Piece chosenPiece;
     public int[][] chessBoard = new int[8][8];
 
     public ChessBoard(Client chessClient) {
         this.Player = chessClient;
-        myColor=14;
         setSize(800, 800);
+        //initPieces();
         this.image_buffer = new BufferedImage(400, 400, 1);
         addMouseListener(this);
         addMouseMotionListener(this);
         setBoard();
+        this.serverconnection = new ChessServerConnection(this);
         this.pickedPiece = 12;
     }
 
+    public void resetBoard() {
+        setBoard();
+        repaint();
+        String str = Code.encodeBoard(this);
+        this.serverconnection.send(str);
+        this.serverconnection.send("@RESET");
+    }
 
+    //public void initPieces(){
     Rook rookw=new Rook(true);
     Rook rookb=new Rook(false);
     Knight knightw=new Knight(true);
@@ -43,6 +54,7 @@ public class ChessBoard extends JPanel implements ImageObserver, MouseListener, 
     Queen queenb=new Queen(false);
     Pawn pawnw=new Pawn(true);
     Pawn pawnb=new Pawn(false);
+    //}
 
     private void setBoard() {
         for(int i = 2; i < 6; i++) {
@@ -70,7 +82,7 @@ public class ChessBoard extends JPanel implements ImageObserver, MouseListener, 
         this.chessBoard[7][3] = queenw.id;
         this.chessBoard[7][4] = kingw.id;
         this.chessBoard[7][5] = bishopw.id;
-        this.chessBoard[7][6] = knightw.id;
+        this.chessBoard[7][6] = kingw.id;
         this.chessBoard[7][7] = rookw.id;
     }
 
@@ -86,8 +98,7 @@ public class ChessBoard extends JPanel implements ImageObserver, MouseListener, 
         localGraphics2D.drawImage(image_buffer, 0, 0, this);
     }
 
-
-    public void drawOffscreen(){
+    private void drawOffscreen(){
         Graphics2D localGraphics2D = image_buffer.createGraphics();
         renderChessBoard(localGraphics2D);
         if(pickedPiece != 12) {
@@ -150,8 +161,9 @@ public class ChessBoard extends JPanel implements ImageObserver, MouseListener, 
             return;
 
         pickedPiece = chessBoard[fromY][fromX];
+//mycolor bool mishe va tabdile id be piecce ye tabe mishe
         if(pickedPiece!=12){
-            if((getPieceType(pickedPiece) != myColor) ) {
+            if((getPieceType(pickedPiece) != myColor) || (!myTurn)) {
                 pickedPiece = 12;
                 return;
             }
@@ -192,10 +204,12 @@ public class ChessBoard extends JPanel implements ImageObserver, MouseListener, 
         else {
             chessBoard[fromY][fromX] = pickedPiece;
         }
-        if(myColor==14){myColor=13;}else {myColor=14;};
         pickedPiece = 12;
         repaint();
-
+        String str = Code.encodeBoard(this);
+        this.serverconnection.send(str);
+        this.serverconnection.send("@TOKEN");
+        this.myTurn = false;
     }
 
     @Override
@@ -211,6 +225,7 @@ public class ChessBoard extends JPanel implements ImageObserver, MouseListener, 
     public void mouseMoved(MouseEvent paramMouseEvent)
     {
     }
+//in tabe bool return kone va jahayi ke getpiecetype hast ye is empty ham ezafe konim
 
     public int getPieceType(int paramInt){
         switch(paramInt) {
@@ -280,8 +295,36 @@ public class ChessBoard extends JPanel implements ImageObserver, MouseListener, 
         }
         return true;
     }
+    public synchronized void receiveData(String paramString) {
+        if(paramString.charAt(0) == '@') {
+            processCommand(paramString);
+            return;
+        }
+        Code.decodeBoard(paramString,this);
+        repaint();
+    }
 
-
+    private void processCommand(String paramString) {
+        if(paramString.compareTo("@BLACK") == 0) {
+            this.myColor = 13;
+            this.Player.setTitle("PLAYER BLACK");
+            resetBoard();
+        }
+        else if(paramString.compareTo("@WHITE") == 0) {
+            this.myColor = 14;
+            this.Player.setTitle("PLAYER WHITE");
+            resetBoard();
+            this.myTurn = true;
+        }
+        if(paramString.compareTo("@RESET") == 0) {
+            if(myColor == 14){
+                this.myTurn = true;
+            }
+        }
+        else if(paramString.compareTo("@TOKEN") == 0) {
+            this.myTurn = true;
+        }
+    }
     public Piece getPiece(int id){
 
         switch (id){

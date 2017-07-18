@@ -25,7 +25,8 @@ public class Bishop extends Piece {
             case 3:
 
 
-                if (fromY - toY == fromX - toX) {
+                if (Math.abs(fromY - toY) == Math.abs(fromX - toX)) {
+
                     if (fromY > toY && fromX > toX) {
                         for (int i = toY + 1, j = toX + 1; i < fromY && j < fromX; ++i, ++j) {
                             if (chessBoard[i][j] != 12) {
@@ -34,8 +35,10 @@ public class Bishop extends Piece {
                         }
                         return true;
                     } else if (fromY > toY && fromX < toX) {
+
                         for (int i = toY + 1, j = toX - 1; i < fromY && j > fromX; ++i, --j) {
                             if (chessBoard[i][j] != 12) {
+
                                 return false;
                             }
                         }
@@ -60,7 +63,7 @@ public class Bishop extends Piece {
 
                 }
             case 9:
-                if (fromY - toY == fromX - toX) {
+                if (Math.abs(fromY - toY) == Math.abs(fromX - toX)) {
                     if (fromY > toY && fromX > toX) {
                         for (int i = toY + 1, j = toX + 1; i < fromY && j < fromX; ++i, ++j) {
                             if (chessBoard[i][j] != 12) {
